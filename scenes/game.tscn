@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://cki5huvjnjhbw"]
+[gd_scene load_steps=12 format=4 uid="uid://cki5huvjnjhbw"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_i2oyg"]
 [ext_resource type="Texture2D" uid="uid://cmma0q3yop23w" path="res://assets/background.png" id="1_ugsom"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_104fl"]
 [ext_resource type="Texture2D" uid="uid://c4b3cga2rdp0s" path="res://assets/player.png" id="2_o73di"]
 [ext_resource type="Texture2D" uid="uid://chl0sdayn1508" path="res://assets/flower.png" id="4_vbygb"]
+[ext_resource type="Script" path="res://scripts/flower.gd" id="5_13tlq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bv5jl"]
 radius = 10.6667
@@ -120,6 +121,7 @@ script = ExtResource("1_i2oyg")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 1
+position = Vector2(0, -100)
 collision_layer = 2
 script = ExtResource("2_104fl")
 
@@ -188,12 +190,24 @@ tile_map_data = PackedByteArray("AADn/+z/AAAGAAIAAADn/+3/AAACAAQAAADn/+7/AAAFAAQ
 tile_set = SubResource("TileSet_qmeeo")
 
 [node name="Flower" type="Area2D" parent="."]
+collision_mask = 4
+script = ExtResource("5_13tlq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flower"]
 shape = SubResource("CircleShape2D_std30")
 
 [node name="Sprite2D" type="Sprite2D" parent="Flower"]
 texture = ExtResource("4_vbygb")
+
+[node name="Health" type="ProgressBar" parent="Flower"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -37.0
+offset_top = 48.0
+offset_right = 37.0
+offset_bottom = 53.0
+step = 1.0
+value = 100.0
+show_percentage = false
 
 [node name="Spawn" type="Timer" parent="."]
 autostart = true

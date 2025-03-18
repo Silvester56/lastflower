@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://p0a17454vlyb" path="res://assets/enemy.png" id="2_7pgpx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwtrk"]
+size = Vector2(22, 64)
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
