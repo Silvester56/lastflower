@@ -33,6 +33,8 @@ func _physics_process(delta: float) -> void:
 func changeHealth(ammount):
 	health = health + ammount
 	$Health.value = health
+	if health <= 0:
+		$"..".gameover()
 
 func increaseXp(gainedXp: int):
 	xp = xp + gainedXp
