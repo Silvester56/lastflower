@@ -5,8 +5,12 @@ var meleePower = 1
 var xp: int = 0
 var xpForNextLevel: int = 5
 var level = 1
+var health: int = 100
 
 func _physics_process(delta: float) -> void:
+	for body in $Hitbox.get_overlapping_bodies():
+		if "isEnemy" in body and body.isEnemy:
+			changeHealth(-1)
 	if Input.is_action_just_pressed("melee"):
 		$Range/Polygon2D.visible = true
 		$Range/Timer.start()
@@ -25,6 +29,10 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.y = move_toward(velocity.y, 0, speed)
 	move_and_slide()
+
+func changeHealth(ammount):
+	health = health + ammount
+	$Health.value = health
 
 func increaseXp(gainedXp: int):
 	xp = xp + gainedXp
