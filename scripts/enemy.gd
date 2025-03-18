@@ -3,7 +3,7 @@ extends CharacterBody2D
 var goal: Vector2
 var speed = 50.0
 var isEnemy = true
-var health: int = 2
+var health: int = 1
 var xpDropped = 1
 
 func _physics_process(delta: float) -> void:

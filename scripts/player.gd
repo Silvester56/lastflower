@@ -6,14 +6,16 @@ var xp: int = 0
 var xpForNextLevel: int = 5
 var level = 1
 var health: int = 100
+var autoHealPower: int = 1
 
 func _physics_process(delta: float) -> void:
 	for body in $Hitbox.get_overlapping_bodies():
 		if "isEnemy" in body and body.isEnemy:
 			changeHealth(-1)
-	if Input.is_action_just_pressed("melee"):
+	if Input.is_action_just_pressed("melee") and $MeleeCooldown.is_stopped():
 		$Range/Polygon2D.visible = true
 		$Range/Timer.start()
+		$MeleeCooldown.start()
 		for body in $Range.get_overlapping_bodies():
 			if "isEnemy" in body and body.isEnemy:
 				increaseXp(body.getHit(meleePower))
@@ -53,3 +55,6 @@ func increaseXp(gainedXp: int):
 
 func _on_timer_timeout() -> void:
 	$Range/Polygon2D.visible = false
+
+func _on_auto_heal_timeout() -> void:
+	changeHealth(autoHealPower)
