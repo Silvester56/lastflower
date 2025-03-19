@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwai0kw1fkp4y"]
+
+[ext_resource type="Theme" uid="uid://xw13thsvp7al" path="res://themes/morris_small.tres" id="1_cg6jw"]
+[ext_resource type="Script" path="res://scripts/upgrade.gd" id="2_ecwas"]
+
+[node name="Upgrade" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -624.0
+offset_bottom = -688.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cg6jw")
+script = ExtResource("2_ecwas")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 80.0
+color = Color(0.423529, 0.227451, 1, 1)
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+offset_right = 400.0
+offset_bottom = 80.0
+
+[node name="NameMask" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 140.0
+offset_bottom = 20.0
+color = Color(0.113725, 0.113725, 0.113725, 0.584314)
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 20.0
+text = "Name"
+
+[node name="Rank" type="Label" parent="."]
+layout_mode = 2
+offset_left = 330.0
+offset_right = 400.0
+offset_bottom = 18.0
+text = "Rank : 1"
+
+[node name="Description" type="Label" parent="."]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 400.0
+offset_bottom = 79.0
+text = "Description of the upgrade, the upgrade does blablablaefefefe"
+autowrap_mode = 1
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

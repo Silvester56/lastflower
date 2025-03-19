@@ -7,6 +7,8 @@ var xpForNextLevel: int = 5
 var level = 1
 var health: int = 100
 var autoHealPower: int = 1
+var meleeCooldown = 15
+var canShoot = false
 
 func _physics_process(delta: float) -> void:
 	for body in $Hitbox.get_overlapping_bodies():
@@ -51,7 +53,15 @@ func increaseXp(gainedXp: int):
 			xpForNextLevel = xpForNextLevel + 20
 		$Level.text = "LEVEL " + str(level)
 		$Experience.max_value = xpForNextLevel
+		$UpgradeManager.onLevelUp(level)
 	$Experience.value = xp
+
+func decreaseMeleeCooldown() -> void:
+	meleeCooldown = meleeCooldown - 1
+	$MeleeCooldown.wait_time = meleeCooldown / 10
+
+func turnOnShooting() -> void:
+	canShoot = true
 
 func _on_timer_timeout() -> void:
 	$Range/Polygon2D.visible = false

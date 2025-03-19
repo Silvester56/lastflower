@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var enemy = preload("res://scenes/enemy.tscn")
 var rng = RandomNumberGenerator.new()
+var globalAutoHealSpeed = 1
+var globalAutoHealPower = 1
 
 func _on_spawn_timeout() -> void:
 	var newEnemy = enemy.instantiate()
@@ -11,6 +13,16 @@ func _on_spawn_timeout() -> void:
 	newEnemy.position.y = spawnRadius * sin(spawnAngle)
 	newEnemy.goal = $Flower.position
 	add_child(newEnemy)
+
+func increaseAutoHealSpeed() -> void:
+	globalAutoHealSpeed = globalAutoHealSpeed - 0.1
+	$Player/AutoHeal.wait_time = globalAutoHealSpeed
+	$Flower/AutoHeal.wait_time = globalAutoHealSpeed
+
+func increaseAutoHealPower() -> void:
+	globalAutoHealPower = globalAutoHealPower + 1
+	$Player.autoHealPower = globalAutoHealPower
+	$Flower.autoHealPower = globalAutoHealPower
 
 func gameover() -> void:
 	$Player/GameOver.show()
