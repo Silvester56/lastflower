@@ -21,11 +21,6 @@ offset_right = 400.0
 offset_bottom = 80.0
 color = Color(0.423529, 0.227451, 1, 1)
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 2
-offset_right = 400.0
-offset_bottom = 80.0
-
 [node name="NameMask" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 140.0
@@ -52,5 +47,11 @@ offset_right = 400.0
 offset_bottom = 79.0
 text = "Description of the upgrade, the upgrade does blablablaefefefe"
 autowrap_mode = 1
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+layout_mode = 2
+offset_right = 400.0
+offset_bottom = 80.0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

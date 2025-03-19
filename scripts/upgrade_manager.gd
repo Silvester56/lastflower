@@ -2,36 +2,56 @@ extends VBoxContainer
 
 @export var Upgrade: PackedScene
 
-enum upgradeId {
-	AUTO_HEAL_SPEED,
-	AUTO_HEAL_POWER,
-	MELEE_COOLDOWN,
-	SHOOT,
-	SHOOT_COOLDOWN,
+var allUpgrades = {
+	"AUTO_HEAL_SPEED" : 1,
+	"AUTO_HEAL_POWER" : 1,
+	"MELEE_COOLDOWN" : 1,
+	"SHOOTING_WEAPON" : 1,
+	"SHOOTING_POWER" : 1,
+	"SHOOTING_COOLDOWN" : 1
 }
 
 func onLevelUp(level) -> void:
+	var availableUpgrades = []
+	var possibleUpgrade
 	show()
 	get_tree().paused = true
-	if level == 2:
-		createUpgrade("Sap speed", "Makes auto heal faster", 1, upgradeId.AUTO_HEAL_SPEED)
-		createUpgrade("Sap power", "More health per auto heal", 1, upgradeId.AUTO_HEAL_POWER)
-		createUpgrade("Spores", "Decreases melee attack cooldown", 1, upgradeId.MELEE_COOLDOWN)
+	while len(availableUpgrades) < 3:
+		possibleUpgrade = allUpgrades.keys().pick_random()
+		if not availableUpgrades.has(possibleUpgrade):
+			availableUpgrades.push_front(possibleUpgrade)
+	for upgradeId in availableUpgrades:
+		createUpgrade(upgradeId, allUpgrades[upgradeId])
 
-func createUpgrade(buttonText, labelText, rank, identifier):
+func createUpgrade(upgradeId, rank):
 	var result = Upgrade.instantiate()
-	result.setProperties(buttonText, labelText, rank, identifier)
+	if upgradeId == "AUTO_HEAL_SPEED":
+		result.setProperties("Sap speed", "Makes auto heal faster", rank, upgradeId)
+	if upgradeId == "AUTO_HEAL_POWER":
+		result.setProperties("Sap power", "More health per auto heal", rank, upgradeId)
+	if upgradeId == "MELEE_COOLDOWN":
+		result.setProperties("Spores", "Decreases melee attack cooldown", rank, upgradeId)
+	if upgradeId == "SHOOTING_WEAPON":
+		result.setProperties("Slingshot", "Better long distance weapon", rank, upgradeId)
+	if upgradeId == "SHOOTING_POWER":
+		result.setProperties("Chestnut spikes", "More damage per hit", rank, upgradeId)
+	if upgradeId == "SHOOTING_COOLDOWN":
+		result.setProperties("Reload", "Decreases slingshot cooldown", rank, upgradeId)
 	result.connect("upgrade_purchased", _on_upgrade_purchased)
 	add_child(result)
 	
 func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	hide()
+	for c in get_children():
+		if "upgradeIdentifier" in c:
+			c.queue_free()
 	get_tree().paused = false
-	if upgradeIdentifier == upgradeId.AUTO_HEAL_SPEED:
+	allUpgrades[upgradeIdentifier] = allUpgrades[upgradeIdentifier] + 1
+	if upgradeIdentifier == "AUTO_HEAL_SPEED":
 		$"../..".increaseAutoHealSpeed()
-	if upgradeIdentifier == upgradeId.AUTO_HEAL_POWER:
+	if upgradeIdentifier == "AUTO_HEAL_POWER":
 		$"../..".increaseAutoHealPower()
-	if upgradeIdentifier == upgradeId.MELEE_COOLDOWN:
+	if upgradeIdentifier == "MELEE_COOLDOWN":
 		$"..".decreaseMeleeCooldown()
-	if upgradeIdentifier == upgradeId.SHOOT:
-		$"..".turnOnShooting()
+	if upgradeIdentifier == "SHOOTING_POWER":
+		$"..".increaseShootingPower()

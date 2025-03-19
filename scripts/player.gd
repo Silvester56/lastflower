@@ -60,7 +60,7 @@ func decreaseMeleeCooldown() -> void:
 	meleeCooldown = meleeCooldown - 1
 	$MeleeCooldown.wait_time = meleeCooldown / 10
 
-func turnOnShooting() -> void:
+func increaseShootingPower() -> void:
 	canShoot = true
 
 func _on_timer_timeout() -> void:
