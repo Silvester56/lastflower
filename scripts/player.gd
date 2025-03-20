@@ -26,6 +26,9 @@ func _physics_process(delta: float) -> void:
 		var target = get_global_mouse_position()
 		bullet.direction = global_position.direction_to(target).normalized()
 		add_child(bullet)
+	if Input.is_action_just_pressed("pause"):
+		$PauseMenu.show()
+		get_tree().paused = true
 	if Input.is_action_just_pressed("melee") and $MeleeCooldown.is_stopped():
 		$Range/Polygon2D.visible = true
 		$Range/Timer.start()
@@ -108,3 +111,7 @@ func _on_global_timer_timeout() -> void:
 	if minutes == 30:
 		$Success.show()
 		get_tree().paused = true
+
+func _on_continue_pressed() -> void:
+	$PauseMenu.hide()
+	get_tree().paused = false
