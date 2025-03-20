@@ -53,8 +53,7 @@ func changeHealth(ammount):
 	health = health + ammount
 	$Health.value = health
 	if health <= 0:
-		$GameOver.show()
-		get_tree().paused = true
+		$"..".gameover()
 
 func displayUpgrade(upgradeIdentifier):
 	var upgrade
@@ -108,6 +107,7 @@ func _on_global_timer_timeout() -> void:
 	seconds = seconds + 1
 	minutes = seconds / 60
 	$Chronometer.text = formatTime(minutes) + ":" + formatTime(seconds % 60)
+	$"..".increaseDifficulty(seconds)
 	if minutes == 30:
 		$Success.show()
 		get_tree().paused = true
