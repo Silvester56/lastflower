@@ -18,11 +18,11 @@ func getUpgradeOffest(upgradeId: String) -> int:
 	if upgradeId == "THORNS":
 		return 128
 	if upgradeId == "SHOOTING_WEAPON":
-		return 0
+		return 160
 	if upgradeId == "SHOOTING_POWER":
-		return 0
+		return 224
 	if upgradeId == "SHOOTING_COOLDOWN":
-		return 0
+		return 192
 	return 0
 
 func _on_spawn_timeout() -> void:
@@ -61,7 +61,9 @@ func increaseAutoHealPower() -> void:
 
 func increaseDifficulty(seconds):
 	$Spawn.wait_time = 1 - float(seconds) / 2000
-	percentageOfGame = seconds / 18
+	percentageOfGame = float(seconds) / 18
+	$Flower.scale.x = 1 + percentageOfGame / 25
+	$Flower.scale.y = 1 + percentageOfGame / 25
 
 func gameover():
 	$Player/GameOver.show()
