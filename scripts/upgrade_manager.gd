@@ -16,10 +16,13 @@ func onLevelUp(level) -> void:
 	var possibleUpgrade
 	show()
 	get_tree().paused = true
-	while len(availableUpgrades) < 3:
-		possibleUpgrade = allUpgrades.keys().pick_random()
-		if not availableUpgrades.has(possibleUpgrade):
-			availableUpgrades.push_front(possibleUpgrade)
+	if len(allUpgrades) <= 3:
+		availableUpgrades = allUpgrades.keys()
+	else :
+		while len(availableUpgrades) < 3:
+			possibleUpgrade = allUpgrades.keys().pick_random()
+			if not availableUpgrades.has(possibleUpgrade):
+				availableUpgrades.push_front(possibleUpgrade)
 	for upgradeId in availableUpgrades:
 		createUpgrade(upgradeId, allUpgrades[upgradeId])
 
@@ -28,9 +31,9 @@ func createUpgrade(upgradeId, rank):
 	if upgradeId == "AUTO_HEAL_SPEED":
 		result.setProperties("Sap speed", "Makes auto heal faster", rank, upgradeId)
 	if upgradeId == "AUTO_HEAL_POWER":
-		result.setProperties("Sap power", "More health per auto heal", rank, upgradeId)
+		result.setProperties("Sap power", "More health per auto heal", rank, upgradeId, 64)
 	if upgradeId == "MELEE_COOLDOWN":
-		result.setProperties("Spores", "Decreases melee attack cooldown", rank, upgradeId)
+		result.setProperties("Spores", "Decreases melee attack cooldown", rank, upgradeId, 32)
 	if upgradeId == "SHOOTING_WEAPON":
 		result.setProperties("Slingshot", "Better long distance weapon", rank, upgradeId)
 	if upgradeId == "SHOOTING_POWER":
@@ -47,6 +50,8 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 			c.queue_free()
 	get_tree().paused = false
 	allUpgrades[upgradeIdentifier] = allUpgrades[upgradeIdentifier] + 1
+	if allUpgrades[upgradeIdentifier] == 6:
+		allUpgrades.erase(upgradeIdentifier)
 	if upgradeIdentifier == "AUTO_HEAL_SPEED":
 		$"../..".increaseAutoHealSpeed()
 	if upgradeIdentifier == "AUTO_HEAL_POWER":

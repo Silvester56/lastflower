@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwai0kw1fkp4y"]
+[gd_scene load_steps=4 format=3 uid="uid://cwai0kw1fkp4y"]
 
 [ext_resource type="Theme" uid="uid://xw13thsvp7al" path="res://themes/morris_small.tres" id="1_cg6jw"]
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="2_ecwas"]
+[ext_resource type="Texture2D" uid="uid://oicocqh5uq6d" path="res://assets/upgrades.png" id="3_w0qea"]
 
 [node name="Upgrade" type="Control"]
 layout_mode = 3
@@ -42,6 +43,7 @@ text = "Rank : 1"
 
 [node name="Description" type="Label" parent="."]
 layout_mode = 0
+offset_left = 40.0
 offset_top = 40.0
 offset_right = 400.0
 offset_bottom = 79.0
@@ -53,5 +55,11 @@ modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 2
 offset_right = 400.0
 offset_bottom = 80.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 60)
+texture = ExtResource("3_w0qea")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
