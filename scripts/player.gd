@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@export var UpgradePurchased: PackedScene
+
 var speed = 100.0
 var meleePower = 1
 var xp: int = 0
@@ -9,6 +11,7 @@ var health: int = 100
 var autoHealPower: int = 1
 var meleeCooldown = 15
 var canShoot = false
+var purchasedUpgrades = {}
 
 func _physics_process(delta: float) -> void:
 	for body in $Hitbox.get_overlapping_bodies():
@@ -39,6 +42,19 @@ func changeHealth(ammount):
 	$Health.value = health
 	if health <= 0:
 		$"..".gameover()
+
+func displayUpgrade(upgradeIdentifier):
+	var upgrade
+	if upgradeIdentifier in purchasedUpgrades:
+		purchasedUpgrades[upgradeIdentifier] = purchasedUpgrades[upgradeIdentifier] + 1
+	else:
+		purchasedUpgrades[upgradeIdentifier] = 1
+	for c in $UpgradeDisplay.get_children():
+		c.queue_free()
+	for key in purchasedUpgrades.keys():
+		upgrade = UpgradePurchased.instantiate()
+		upgrade.setProperties($"..".getUpgradeOffest(key), purchasedUpgrades[key])
+		$UpgradeDisplay.add_child(upgrade)
 
 func increaseXp(gainedXp: int):
 	xp = xp + gainedXp

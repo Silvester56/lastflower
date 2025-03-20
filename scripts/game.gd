@@ -5,6 +5,25 @@ var rng = RandomNumberGenerator.new()
 var globalAutoHealSpeed = 1
 var globalAutoHealPower = 1
 
+func getUpgradeOffest(upgradeId: String) -> int:
+	if upgradeId == "AUTO_HEAL_SPEED":
+		return 0
+	if upgradeId == "AUTO_HEAL_POWER":
+		return 64
+	if upgradeId == "MELEE_COOLDOWN":
+		return 32
+	if upgradeId == "SHROOMS":
+		return 96
+	if upgradeId == "THORNS":
+		return 128
+	if upgradeId == "SHOOTING_WEAPON":
+		return 0
+	if upgradeId == "SHOOTING_POWER":
+		return 0
+	if upgradeId == "SHOOTING_COOLDOWN":
+		return 0
+	return 0
+
 func _on_spawn_timeout() -> void:
 	var newEnemy = enemy.instantiate()
 	var spawnAngle = rng.randf_range(0, 2 * PI)

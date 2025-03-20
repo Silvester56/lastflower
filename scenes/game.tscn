@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=4 uid="uid://cki5huvjnjhbw"]
+[gd_scene load_steps=16 format=4 uid="uid://cki5huvjnjhbw"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_i2oyg"]
 [ext_resource type="Texture2D" uid="uid://cmma0q3yop23w" path="res://assets/background.png" id="1_ugsom"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="2_104fl"]
 [ext_resource type="Texture2D" uid="uid://c4b3cga2rdp0s" path="res://assets/player.png" id="2_o73di"]
 [ext_resource type="Theme" uid="uid://cm4mhu1ybvfly" path="res://themes/morris.tres" id="4_dwo01"]
+[ext_resource type="PackedScene" uid="uid://duovqds3ei7of" path="res://scenes/upgrade_purchased.tscn" id="4_huumk"]
 [ext_resource type="Texture2D" uid="uid://chl0sdayn1508" path="res://assets/flower.png" id="4_vbygb"]
 [ext_resource type="Script" path="res://scripts/flower.gd" id="5_13tlq"]
 [ext_resource type="Script" path="res://scripts/upgrade_manager.gd" id="5_hyn4y"]
@@ -130,6 +131,7 @@ tile_set = SubResource("TileSet_qmeeo")
 position = Vector2(0, -100)
 collision_layer = 2
 script = ExtResource("2_104fl")
+UpgradePurchased = ExtResource("4_huumk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 scale = Vector2(3, 3)
@@ -269,6 +271,9 @@ layout_mode = 2
 theme = ExtResource("4_dwo01")
 text = "Level Up!"
 horizontal_alignment = 1
+
+[node name="UpgradeDisplay" type="Node2D" parent="Player"]
+position = Vector2(-505, -340)
 
 [node name="Flower" type="Area2D" parent="."]
 collision_mask = 4

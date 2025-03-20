@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://duovqds3ei7of"]
+
+[ext_resource type="Script" path="res://scripts/upgrade_purchased.gd" id="1_7ukkt"]
+[ext_resource type="Texture2D" uid="uid://oicocqh5uq6d" path="res://assets/upgrades.png" id="1_ya4gr"]
+
+[node name="UpgradePurchased" type="Node2D"]
+script = ExtResource("1_7ukkt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("1_ya4gr")
+region_enabled = true
+region_rect = Rect2(32, 0, 32, 32)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 21.0
+offset_right = 60.0
+offset_bottom = 44.0
+text = "5"

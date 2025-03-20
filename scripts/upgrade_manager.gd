@@ -3,12 +3,12 @@ extends VBoxContainer
 @export var Upgrade: PackedScene
 
 var allUpgrades = {
-	"AUTO_HEAL_SPEED" : 1,
-	"AUTO_HEAL_POWER" : 1,
-	"MELEE_COOLDOWN" : 1,
-	"SHOOTING_WEAPON" : 1,
-	"SHOOTING_POWER" : 1,
-	"SHOOTING_COOLDOWN" : 1
+	"AUTO_HEAL_SPEED": 1,
+	"AUTO_HEAL_POWER": 1,
+	"MELEE_COOLDOWN": 1,
+	"SHROOMS": 1,
+	"THORNS": 1,
+	"SHOOTING_WEAPON": 1
 }
 
 func onLevelUp(level) -> void:
@@ -33,11 +33,15 @@ func createUpgrade(upgradeId, rank):
 	if upgradeId == "AUTO_HEAL_POWER":
 		result.setProperties("Sap power", "More health per auto heal", rank, upgradeId, 64)
 	if upgradeId == "MELEE_COOLDOWN":
-		result.setProperties("Spores", "Decreases melee attack cooldown", rank, upgradeId, 32)
+		result.setProperties("Whip", "Decreases melee attack cooldown", rank, upgradeId, 32)
+	if upgradeId == "SHROOMS":
+		result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
+	if upgradeId == "THORNS":
+		result.setProperties("Thorns", "Slows down the enemies", rank, upgradeId, 128)
 	if upgradeId == "SHOOTING_WEAPON":
-		result.setProperties("Slingshot", "Better long distance weapon", rank, upgradeId)
+		result.setProperties("Slingshot", "Long distance weapon", rank, upgradeId)
 	if upgradeId == "SHOOTING_POWER":
-		result.setProperties("Chestnut spikes", "More damage per hit", rank, upgradeId)
+		result.setProperties("Chestnut spikes", "Each projectiles deal more damage", rank, upgradeId)
 	if upgradeId == "SHOOTING_COOLDOWN":
 		result.setProperties("Reload", "Decreases slingshot cooldown", rank, upgradeId)
 	result.connect("upgrade_purchased", _on_upgrade_purchased)
@@ -49,6 +53,7 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 		if "upgradeIdentifier" in c:
 			c.queue_free()
 	get_tree().paused = false
+	$"..".displayUpgrade(upgradeIdentifier)
 	allUpgrades[upgradeIdentifier] = allUpgrades[upgradeIdentifier] + 1
 	if allUpgrades[upgradeIdentifier] == 6:
 		allUpgrades.erase(upgradeIdentifier)
@@ -58,5 +63,7 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 		$"../..".increaseAutoHealPower()
 	if upgradeIdentifier == "MELEE_COOLDOWN":
 		$"..".decreaseMeleeCooldown()
-	if upgradeIdentifier == "SHOOTING_POWER":
-		$"..".increaseShootingPower()
+	if upgradeIdentifier == "SHOOTING_WEAPON":
+		allUpgrades["SHOOTING_POWER"] = 1
+		allUpgrades["SHOOTING_COOLDOWN"] = 1
+		$"..".turnOnShooting()
