@@ -43,10 +43,6 @@ func increaseAutoHealPower() -> void:
 	$Player.autoHealPower = globalAutoHealPower
 	$Flower.autoHealPower = globalAutoHealPower
 
-func gameover() -> void:
-	$Player/GameOver.show()
-	get_tree().paused = true
-
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/game.tscn")

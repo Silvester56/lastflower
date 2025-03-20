@@ -242,6 +242,53 @@ text = "RETRY"
 layout_mode = 2
 text = "MAIN MENU"
 
+[node name="Success" type="Control" parent="Player"]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = -512.0
+offset_top = -384.0
+offset_right = 512.0
+offset_bottom = 384.0
+theme = ExtResource("4_dwo01")
+
+[node name="ColorRect" type="ColorRect" parent="Player/Success"]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 768.0
+color = Color(0, 0, 0, 0.392157)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player/Success"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -143.5
+offset_top = -78.0
+offset_right = 143.5
+offset_bottom = 78.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Player/Success/VBoxContainer"]
+layout_mode = 2
+text = "SUCCESS"
+horizontal_alignment = 1
+
+[node name="Space" type="Label" parent="Player/Success/VBoxContainer"]
+layout_mode = 2
+
+[node name="Retry" type="Button" parent="Player/Success/VBoxContainer"]
+layout_mode = 2
+text = "RETRY"
+
+[node name="Back" type="Button" parent="Player/Success/VBoxContainer"]
+layout_mode = 2
+text = "MAIN MENU"
+
 [node name="MeleeCooldown" type="Timer" parent="Player"]
 wait_time = 1.5
 one_shot = true
@@ -281,6 +328,23 @@ position = Vector2(-505, -340)
 wait_time = 1.5
 one_shot = true
 
+[node name="GlobalTimer" type="Timer" parent="Player"]
+autostart = true
+
+[node name="Chronometer" type="Label" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -330.0
+offset_right = 20.5
+offset_bottom = -307.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "00:00"
+
 [node name="Flower" type="Area2D" parent="."]
 collision_mask = 4
 script = ExtResource("5_13tlq")
@@ -310,6 +374,9 @@ autostart = true
 [connection signal="timeout" from="Player/Range/Timer" to="Player" method="_on_timer_timeout"]
 [connection signal="pressed" from="Player/GameOver/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="Player/GameOver/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Player/Success/VBoxContainer/Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Player/Success/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="timeout" from="Player/AutoHeal" to="Player" method="_on_auto_heal_timeout"]
+[connection signal="timeout" from="Player/GlobalTimer" to="Player" method="_on_global_timer_timeout"]
 [connection signal="timeout" from="Flower/AutoHeal" to="Flower" method="_on_auto_heal_timeout"]
 [connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]

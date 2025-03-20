@@ -13,6 +13,8 @@ var autoHealPower: int = 1
 var meleeCooldown = 15
 var weapon = 0
 var purchasedUpgrades = {}
+var seconds = 0
+var minutes = 0
 
 func _physics_process(delta: float) -> void:
 	for body in $Hitbox.get_overlapping_bodies():
@@ -48,7 +50,8 @@ func changeHealth(ammount):
 	health = health + ammount
 	$Health.value = health
 	if health <= 0:
-		$"..".gameover()
+		$GameOver.show()
+		get_tree().paused = true
 
 func displayUpgrade(upgradeIdentifier):
 	var upgrade
@@ -91,3 +94,17 @@ func _on_timer_timeout() -> void:
 
 func _on_auto_heal_timeout() -> void:
 	changeHealth(autoHealPower)
+
+func formatTime(number: int):
+	var result = str(number)
+	if len(result) == 1:
+		return "0" + result
+	return result
+
+func _on_global_timer_timeout() -> void:
+	seconds = seconds + 1
+	minutes = seconds / 60
+	$Chronometer.text = formatTime(minutes) + ":" + formatTime(seconds % 60)
+	if minutes == 30:
+		$Success.show()
+		get_tree().paused = true
