@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var UpgradePurchased: PackedScene
+@export var Bullet: PackedScene
 
 var speed = 100.0
 var meleePower = 1
@@ -10,13 +11,19 @@ var level = 1
 var health: int = 100
 var autoHealPower: int = 1
 var meleeCooldown = 15
-var canShoot = false
+var weapon = 0
 var purchasedUpgrades = {}
 
 func _physics_process(delta: float) -> void:
 	for body in $Hitbox.get_overlapping_bodies():
 		if "isEnemy" in body and body.isEnemy:
 			changeHealth(-1)
+	if weapon > 0 and Input.is_action_just_pressed("shoot") and $ShootingCooldown.is_stopped():
+		$ShootingCooldown.start()
+		var bullet = Bullet.instantiate()
+		var target = get_global_mouse_position()
+		bullet.direction = global_position.direction_to(target).normalized()
+		add_child(bullet)
 	if Input.is_action_just_pressed("melee") and $MeleeCooldown.is_stopped():
 		$Range/Polygon2D.visible = true
 		$Range/Timer.start()
@@ -76,8 +83,8 @@ func decreaseMeleeCooldown() -> void:
 	meleeCooldown = meleeCooldown - 1
 	$MeleeCooldown.wait_time = meleeCooldown / 10
 
-func increaseShootingPower() -> void:
-	canShoot = true
+func nextWeapon() -> void:
+	weapon = weapon + 1
 
 func _on_timer_timeout() -> void:
 	$Range/Polygon2D.visible = false

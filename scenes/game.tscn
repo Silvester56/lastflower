@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cki5huvjnjhbw"]
+[gd_scene load_steps=17 format=4 uid="uid://cki5huvjnjhbw"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_i2oyg"]
 [ext_resource type="Texture2D" uid="uid://cmma0q3yop23w" path="res://assets/background.png" id="1_ugsom"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://chl0sdayn1508" path="res://assets/flower.png" id="4_vbygb"]
 [ext_resource type="Script" path="res://scripts/flower.gd" id="5_13tlq"]
 [ext_resource type="Script" path="res://scripts/upgrade_manager.gd" id="5_hyn4y"]
+[ext_resource type="PackedScene" uid="uid://c6ol4qw8mtt" path="res://scenes/bullet.tscn" id="5_xjb8y"]
 [ext_resource type="PackedScene" uid="uid://cwai0kw1fkp4y" path="res://scenes/upgrade.tscn" id="6_5tl5l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1k0hq"]
@@ -132,6 +133,7 @@ position = Vector2(0, -100)
 collision_layer = 2
 script = ExtResource("2_104fl")
 UpgradePurchased = ExtResource("4_huumk")
+Bullet = ExtResource("5_xjb8y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 scale = Vector2(3, 3)
@@ -274,6 +276,10 @@ horizontal_alignment = 1
 
 [node name="UpgradeDisplay" type="Node2D" parent="Player"]
 position = Vector2(-505, -340)
+
+[node name="ShootingCooldown" type="Timer" parent="Player"]
+wait_time = 1.5
+one_shot = true
 
 [node name="Flower" type="Area2D" parent="."]
 collision_mask = 4

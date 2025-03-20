@@ -63,7 +63,11 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 		$"../..".increaseAutoHealPower()
 	if upgradeIdentifier == "MELEE_COOLDOWN":
 		$"..".decreaseMeleeCooldown()
+	if upgradeIdentifier == "SHROOMS":
+		pass
+	if upgradeIdentifier == "THORNS":
+		pass
 	if upgradeIdentifier == "SHOOTING_WEAPON":
 		allUpgrades["SHOOTING_POWER"] = 1
 		allUpgrades["SHOOTING_COOLDOWN"] = 1
-		$"..".turnOnShooting()
+		$"..".nextWeapon()
