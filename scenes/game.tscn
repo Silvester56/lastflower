@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://cki5huvjnjhbw"]
+[gd_scene load_steps=18 format=4 uid="uid://cki5huvjnjhbw"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_i2oyg"]
 [ext_resource type="Texture2D" uid="uid://cmma0q3yop23w" path="res://assets/background.png" id="1_ugsom"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/upgrade_manager.gd" id="5_hyn4y"]
 [ext_resource type="PackedScene" uid="uid://c6ol4qw8mtt" path="res://scenes/bullet.tscn" id="5_xjb8y"]
 [ext_resource type="PackedScene" uid="uid://cwai0kw1fkp4y" path="res://scenes/upgrade.tscn" id="6_5tl5l"]
+[ext_resource type="Texture2D" uid="uid://v3diqhbe7hup" path="res://assets/thorns.png" id="11_cd0h0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1k0hq"]
 texture = ExtResource("1_ugsom")
@@ -402,6 +403,10 @@ script = ExtResource("5_13tlq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flower"]
 shape = SubResource("CircleShape2D_std30")
 
+[node name="Thorns" type="Sprite2D" parent="Flower"]
+visible = false
+texture = ExtResource("11_cd0h0")
+
 [node name="Sprite2D" type="Sprite2D" parent="Flower"]
 texture = ExtResource("4_vbygb")
 
@@ -430,5 +435,6 @@ autostart = true
 [connection signal="pressed" from="Player/PauseMenu/VBoxContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="timeout" from="Player/AutoHeal" to="Player" method="_on_auto_heal_timeout"]
 [connection signal="timeout" from="Player/GlobalTimer" to="Player" method="_on_global_timer_timeout"]
+[connection signal="body_entered" from="Flower" to="Flower" method="_on_body_entered"]
 [connection signal="timeout" from="Flower/AutoHeal" to="Flower" method="_on_auto_heal_timeout"]
 [connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]

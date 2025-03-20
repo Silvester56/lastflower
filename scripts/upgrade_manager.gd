@@ -36,12 +36,15 @@ func createUpgrade(upgradeId, rank):
 		result.setProperties("Whip", "Decreases melee attack cooldown", rank, upgradeId, 32)
 	if upgradeId == "SHROOMS":
 		result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
-	if upgradeId == "THORNS":
-		result.setProperties("Thorns", "Slows down the enemies", rank, upgradeId, 128)
 	if upgradeId == "SHOOTING_POWER":
 		result.setProperties("Spikes", "Each projectiles deal more damage", rank, upgradeId)
 	if upgradeId == "SHOOTING_COOLDOWN":
 		result.setProperties("Reload", "Decreases weapon cooldown", rank, upgradeId)
+	if upgradeId == "THORNS":
+		if rank == 1:
+			result.setProperties("Thorns", "Enemies on the flower have a chance of getting hit", rank, upgradeId, 128)
+		else:
+			result.setProperties("Thorns", "Enemies on the flower have more chances of getting hit", rank, upgradeId, 128)
 	if upgradeId == "SHOOTING_WEAPON":
 		if rank == 1:
 			result.setProperties("Slingshot", "Long distance weapon", rank, upgradeId)
@@ -75,7 +78,7 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	if upgradeIdentifier == "SHROOMS":
 		pass
 	if upgradeIdentifier == "THORNS":
-		pass
+		$"../../Flower".increaseThorns()
 	if upgradeIdentifier == "SHOOTING_WEAPON":
 		allUpgrades["SHOOTING_POWER"] = 1
 		allUpgrades["SHOOTING_COOLDOWN"] = 1
