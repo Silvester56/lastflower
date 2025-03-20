@@ -1,6 +1,6 @@
 extends Node2D
 
-var speed = 5
+var speed = 10
 var damage = 1
 var direction = Vector2.ZERO
 

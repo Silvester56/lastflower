@@ -38,12 +38,21 @@ func createUpgrade(upgradeId, rank):
 		result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
 	if upgradeId == "THORNS":
 		result.setProperties("Thorns", "Slows down the enemies", rank, upgradeId, 128)
-	if upgradeId == "SHOOTING_WEAPON":
-		result.setProperties("Slingshot", "Long distance weapon", rank, upgradeId)
 	if upgradeId == "SHOOTING_POWER":
-		result.setProperties("Chestnut spikes", "Each projectiles deal more damage", rank, upgradeId)
+		result.setProperties("Spikes", "Each projectiles deal more damage", rank, upgradeId)
 	if upgradeId == "SHOOTING_COOLDOWN":
-		result.setProperties("Reload", "Decreases slingshot cooldown", rank, upgradeId)
+		result.setProperties("Reload", "Decreases weapon cooldown", rank, upgradeId)
+	if upgradeId == "SHOOTING_WEAPON":
+		if rank == 1:
+			result.setProperties("Slingshot", "Long distance weapon", rank, upgradeId)
+		elif rank == 2:
+			result.setProperties("Slingshotgun", "Fires 3 projectiles", rank, upgradeId)
+		elif rank == 3:
+			result.setProperties("Slingshotgun 2", "Fires 5 projectiles", rank, upgradeId)
+		elif rank == 4:
+			result.setProperties("Turret", "Fires in 8 directions", rank, upgradeId)
+		elif rank == 5:
+			result.setProperties("Turret 2", "Fires in 16 directions", rank, upgradeId)
 	result.connect("upgrade_purchased", _on_upgrade_purchased)
 	add_child(result)
 	
@@ -71,3 +80,7 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 		allUpgrades["SHOOTING_POWER"] = 1
 		allUpgrades["SHOOTING_COOLDOWN"] = 1
 		$"..".nextWeapon()
+	if upgradeIdentifier == "SHOOTING_POWER":
+		$"..".increaseShootingPower()
+	if upgradeIdentifier == "SHOOTING_COOLDOWN":
+		$"..".decreaseShootingCooldown()

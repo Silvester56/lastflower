@@ -5,12 +5,12 @@ extends CharacterBody2D
 
 var speed = 100.0
 var meleePower = 1
+var shootingPower = 1
 var xp: int = 0
 var xpForNextLevel: int = 5
 var level = 1
 var health: int = 100
 var autoHealPower: int = 1
-var meleeCooldown = 15
 var weapon = 0
 var purchasedUpgrades = {}
 var seconds = 0
@@ -22,10 +22,21 @@ func _physics_process(delta: float) -> void:
 			changeHealth(-1)
 	if weapon > 0 and Input.is_action_just_pressed("shoot") and $ShootingCooldown.is_stopped():
 		$ShootingCooldown.start()
-		var bullet = Bullet.instantiate()
-		var target = get_global_mouse_position()
-		bullet.direction = global_position.direction_to(target).normalized()
-		add_child(bullet)
+		var angles = [0]
+		if weapon == 2:
+			angles = [0, 0.3, -0.3]
+		if weapon == 3:
+			angles = [0, 0.3, -0.3, 0.6, -0.6]
+		if weapon == 4:
+			angles = [0, 7 * PI / 4, 3 * PI / 2, 5 * PI / 4, PI, 3 * PI / 4, PI / 2, PI / 4]
+		if weapon == 5:
+			angles = [0, 15 * PI / 8, 14 * PI / 8, 13 * PI / 8, 3 * PI / 2, 11 * PI / 8, 5 * PI / 4, 9 * PI / 8, PI, 7 * PI / 8, 3 * PI / 4, 5 * PI / 8, PI / 2, 3 * PI / 8, PI / 4, PI / 8]
+		for a in angles:
+			var bullet = Bullet.instantiate()
+			var target = get_global_mouse_position()
+			bullet.direction = global_position.direction_to(target).normalized().rotated(a)
+			bullet.damage = shootingPower
+			add_child(bullet)
 	if Input.is_action_just_pressed("pause"):
 		$PauseMenu.show()
 		get_tree().paused = true
@@ -85,8 +96,13 @@ func increaseXp(gainedXp: int):
 	$Experience.value = xp
 
 func decreaseMeleeCooldown() -> void:
-	meleeCooldown = meleeCooldown - 1
-	$MeleeCooldown.wait_time = meleeCooldown / 10
+	$MeleeCooldown.wait_time = $MeleeCooldown.wait_time - 0.1
+
+func decreaseShootingCooldown() -> void:
+	$ShootingCooldown.wait_time = $ShootingCooldown.wait_time - 0.1
+
+func increaseShootingPower() -> void:
+	shootingPower = shootingPower + 1
 
 func nextWeapon() -> void:
 	weapon = weapon + 1
