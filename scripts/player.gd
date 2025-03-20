@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 		$Range/Timer.start()
 		$MeleeCooldown.start()
 		for body in $Range.get_overlapping_bodies():
-			if "isEnemy" in body and body.isEnemy:
+			if body.has_method("getHit"):
 				increaseXp(body.getHit(meleePower))
 	var directionX := Input.get_axis("left", "right")
 	if directionX:

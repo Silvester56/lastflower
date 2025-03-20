@@ -18,5 +18,11 @@ func getHit(damage: int):
 		return xpDropped
 	return 0
 
+func setProperties(yOffsset, h, s, xp) -> void:
+	$Sprite2D.region_rect = Rect2(0, yOffsset, 128, 64)
+	health = h
+	speed = s
+	xpDropped = xp
+
 func _on_timer_timeout() -> void:
 	$Sprite2D.frame = ($Sprite2D.frame + 1) % 2
