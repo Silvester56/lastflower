@@ -86,9 +86,9 @@ func increaseXp(gainedXp: int):
 		xp = xp - xpForNextLevel
 		if level < 20:
 			xpForNextLevel = xpForNextLevel + 10
-		elif level < 40:
+		elif level < 35:
 			xpForNextLevel = xpForNextLevel + 15
-		elif level < 60:
+		elif level < 50:
 			xpForNextLevel = xpForNextLevel + 20
 		$Level.text = "LEVEL " + str(level)
 		$Experience.max_value = xpForNextLevel

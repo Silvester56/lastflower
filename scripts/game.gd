@@ -41,12 +41,12 @@ func _on_spawn_timeout() -> void:
 	newEnemy.position.x = spawnRadius * cos(spawnAngle)
 	newEnemy.position.y = spawnRadius * sin(spawnAngle)
 	newEnemy.goal = $Flower.position
-	if len(throws) == 2 and throws[1] == winner:
+	if len(throws) >= 2 and throws[1] == winner:
 		newEnemy.setProperties(64, 2, 60, 2)
-	if len(throws) == 3 and throws[2] == winner:
-		newEnemy.setProperties(96, 5, 80, 4)
-	if len(throws) == 4 and throws[3] == winner:
-		newEnemy.setProperties(128, 10, 100, 8)
+	if len(throws) >= 3 and throws[2] == winner:
+		newEnemy.setProperties(128, 5, 80, 4)
+	if len(throws) >= 4 and throws[3] == winner:
+		newEnemy.setProperties(196, 10, 100, 8)
 	add_child(newEnemy)
 
 func increaseAutoHealSpeed() -> void:
