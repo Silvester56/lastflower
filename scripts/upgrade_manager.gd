@@ -35,7 +35,10 @@ func createUpgrade(upgradeId, rank):
 	if upgradeId == "MELEE_COOLDOWN":
 		result.setProperties("Whip", "Decreases melee attack cooldown", rank, upgradeId, 32)
 	if upgradeId == "SHROOMS":
-		result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
+		if rank == 1:
+			result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
+		else:
+			result.setProperties("Shrooms", "Mushrooms deal more damage", rank, upgradeId, 96)
 	if upgradeId == "SHOOTING_POWER":
 		result.setProperties("Spikes", "Each projectiles deal more damage", rank, upgradeId, 224)
 	if upgradeId == "SHOOTING_COOLDOWN":
@@ -76,7 +79,7 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	if upgradeIdentifier == "MELEE_COOLDOWN":
 		$"..".decreaseMeleeCooldown()
 	if upgradeIdentifier == "SHROOMS":
-		pass
+		$"../../Flower".increaseShrooms()
 	if upgradeIdentifier == "THORNS":
 		$"../../Flower".increaseThorns()
 	if upgradeIdentifier == "SHOOTING_WEAPON":
