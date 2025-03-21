@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cki5huvjnjhbw"]
+[gd_scene load_steps=21 format=4 uid="uid://cki5huvjnjhbw"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_i2oyg"]
 [ext_resource type="Texture2D" uid="uid://cmma0q3yop23w" path="res://assets/background.png" id="1_ugsom"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/upgrade_manager.gd" id="5_hyn4y"]
 [ext_resource type="PackedScene" uid="uid://c6ol4qw8mtt" path="res://scenes/bullet.tscn" id="5_xjb8y"]
 [ext_resource type="PackedScene" uid="uid://cwai0kw1fkp4y" path="res://scenes/upgrade.tscn" id="6_5tl5l"]
+[ext_resource type="PackedScene" uid="uid://buir4p2x3hdmc" path="res://scenes/volume_slider.tscn" id="8_84f00"]
 [ext_resource type="Texture2D" uid="uid://v3diqhbe7hup" path="res://assets/thorns.png" id="11_cd0h0"]
 [ext_resource type="PackedScene" uid="uid://c1dmvhvwr1gr3" path="res://scenes/shroom.tscn" id="11_dgkei"]
 
@@ -334,6 +335,33 @@ layout_mode = 2
 text = "PAUSE"
 horizontal_alignment = 1
 
+[node name="VolumeSlider" parent="Player/PauseMenu/VBoxContainer" instance=ExtResource("8_84f00")]
+layout_mode = 2
+busName = "Master"
+
+[node name="Label" parent="Player/PauseMenu/VBoxContainer/VolumeSlider" index="0"]
+text = "Master"
+
+[node name="Space3" type="Label" parent="Player/PauseMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="VolumeSlider2" parent="Player/PauseMenu/VBoxContainer" instance=ExtResource("8_84f00")]
+layout_mode = 2
+busName = "Music"
+
+[node name="Label" parent="Player/PauseMenu/VBoxContainer/VolumeSlider2" index="0"]
+text = "Music"
+
+[node name="Space2" type="Label" parent="Player/PauseMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="VolumeSlider3" parent="Player/PauseMenu/VBoxContainer" instance=ExtResource("8_84f00")]
+layout_mode = 2
+busName = "SFX"
+
+[node name="Label" parent="Player/PauseMenu/VBoxContainer/VolumeSlider3" index="0"]
+text = "SFX"
+
 [node name="Space" type="Label" parent="Player/PauseMenu/VBoxContainer"]
 layout_mode = 2
 
@@ -448,3 +476,7 @@ autostart = true
 [connection signal="timeout" from="Flower/AutoHeal" to="Flower" method="_on_auto_heal_timeout"]
 [connection signal="timeout" from="Flower/ShroomSpawn" to="Flower" method="_on_shroom_spawn_timeout"]
 [connection signal="timeout" from="Spawn" to="." method="_on_spawn_timeout"]
+
+[editable path="Player/PauseMenu/VBoxContainer/VolumeSlider"]
+[editable path="Player/PauseMenu/VBoxContainer/VolumeSlider2"]
+[editable path="Player/PauseMenu/VBoxContainer/VolumeSlider3"]
