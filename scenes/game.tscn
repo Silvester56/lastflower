@@ -142,11 +142,24 @@ tile_map_data = PackedByteArray("AADA/8D/AAAHAAYAAADA/8H/AAAHAAIAAADA/8L/AAAHAAQ
 tile_set = SubResource("TileSet_qmeeo")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+z_index = 1
 position = Vector2(0, -100)
 collision_layer = 2
 script = ExtResource("2_104fl")
 UpgradePurchased = ExtResource("4_huumk")
 Bullet = ExtResource("5_xjb8y")
+
+[node name="Health" type="ProgressBar" parent="Player"]
+modulate = Color(1, 0, 0, 1)
+z_index = 1
+offset_left = -37.0
+offset_top = 48.0
+offset_right = 37.0
+offset_bottom = 53.0
+max_value = 200.0
+step = 1.0
+value = 200.0
+show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 scale = Vector2(3, 3)
@@ -162,16 +175,6 @@ shape = SubResource("CircleShape2D_bv5jl")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 z_index = 1
 texture = ExtResource("2_o73di")
-
-[node name="Health" type="ProgressBar" parent="Player"]
-modulate = Color(1, 0, 0, 1)
-offset_left = -37.0
-offset_top = 48.0
-offset_right = 37.0
-offset_bottom = 53.0
-step = 1.0
-value = 100.0
-show_percentage = false
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -444,8 +447,20 @@ stream = ExtResource("12_3fxv7")
 bus = &"SFX"
 
 [node name="Flower" type="Area2D" parent="."]
+z_index = 1
 collision_mask = 4
 script = ExtResource("5_13tlq")
+
+[node name="Health" type="ProgressBar" parent="Flower"]
+modulate = Color(1, 0, 0, 1)
+offset_left = -37.0
+offset_top = 48.0
+offset_right = 37.0
+offset_bottom = 53.0
+max_value = 200.0
+step = 1.0
+value = 200.0
+show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flower"]
 shape = SubResource("CircleShape2D_std30")
@@ -456,16 +471,6 @@ texture = ExtResource("11_cd0h0")
 
 [node name="Sprite2D" type="Sprite2D" parent="Flower"]
 texture = ExtResource("4_vbygb")
-
-[node name="Health" type="ProgressBar" parent="Flower"]
-modulate = Color(1, 0, 0, 1)
-offset_left = -37.0
-offset_top = 48.0
-offset_right = 37.0
-offset_bottom = 53.0
-step = 1.0
-value = 100.0
-show_percentage = false
 
 [node name="AutoHeal" type="Timer" parent="Flower"]
 autostart = true

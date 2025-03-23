@@ -9,7 +9,7 @@ var shootingPower = 1
 var xp: int = 0
 var xpForNextLevel: int = 5
 var level = 1
-var health: int = 100
+var health: int = 200
 var autoHealPower: int = 2
 var weapon = 0
 var purchasedUpgrades = {}
@@ -63,8 +63,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func changeHealth(ammount):
-	if health + ammount > 100:
-		health = 100
+	if health + ammount > 200:
+		health = 200
 	else:
 		health = health + ammount
 	$Health.value = health

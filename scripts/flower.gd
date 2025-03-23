@@ -1,6 +1,6 @@
 extends Area2D
 
-var health: int = 100
+var health: int = 200
 var autoHealPower: int = 2
 var thorns = false
 var thornsChance = 5
@@ -12,8 +12,8 @@ func _physics_process(delta: float) -> void:
 			changeHealth(-1)
 
 func changeHealth(ammount):
-	if health + ammount > 100:
-		health = 100
+	if health + ammount > 200:
+		health = 200
 	else:
 		health = health + ammount
 	$Health.value = health
