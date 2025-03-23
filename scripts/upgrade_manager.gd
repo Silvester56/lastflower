@@ -6,9 +6,11 @@ var allUpgrades = {
 	"AUTO_HEAL_SPEED": 1,
 	"AUTO_HEAL_POWER": 1,
 	"MELEE_COOLDOWN": 1,
+	"MELEE_POWER": 1,
 	"SHROOMS": 1,
 	"THORNS": 1,
-	"SHOOTING_WEAPON": 1
+	"SHOOTING_WEAPON": 1,
+	"SPEED": 1
 }
 
 func onLevelUp(level) -> void:
@@ -33,12 +35,18 @@ func createUpgrade(upgradeId, rank):
 	if upgradeId == "AUTO_HEAL_POWER":
 		result.setProperties("Sap power", "More health per auto heal", rank, upgradeId, 64)
 	if upgradeId == "MELEE_COOLDOWN":
-		result.setProperties("Whip", "Decreases melee attack cooldown", rank, upgradeId, 32)
+		result.setProperties("Whip speed", "Decreases melee attack cooldown", rank, upgradeId, 32)
+	if upgradeId == "SPEED":
+		result.setProperties("Boost", "Increases player speed", rank, upgradeId)
+	if upgradeId == "MELEE_POWER":
+		result.setProperties("Whip strength", "Increases melee damage", rank, upgradeId)
 	if upgradeId == "SHROOMS":
 		if rank == 1:
 			result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
 		else:
 			result.setProperties("Shrooms", "Mushrooms deal more damage", rank, upgradeId, 96)
+	if upgradeId == "SHROOM_COOLDOWN":
+		result.setProperties("Shrooms", "Mushrooms appear faster", rank, upgradeId, 96)
 	if upgradeId == "SHOOTING_POWER":
 		result.setProperties("Spikes", "Each projectiles deal more damage", rank, upgradeId, 224)
 	if upgradeId == "SHOOTING_COOLDOWN":
@@ -78,10 +86,18 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 		$"../..".increaseAutoHealPower()
 	if upgradeIdentifier == "MELEE_COOLDOWN":
 		$"..".decreaseMeleeCooldown()
+	if upgradeIdentifier == "MELEE_POWER":
+		$"..".increaseMeleePower()
 	if upgradeIdentifier == "SHROOMS":
 		$"../../Flower".increaseShrooms()
+		if not "SHROOM_COOLDOWN" in allUpgrades:
+			allUpgrades["SHROOM_COOLDOWN"] = 1
+	if upgradeIdentifier == "SHROOM_COOLDOWN":
+		$"../../Flower".decreaseShroomCooldown()
 	if upgradeIdentifier == "THORNS":
 		$"../../Flower".increaseThorns()
+	if upgradeIdentifier == "SPEED":
+		$"..".increaseSpeed()
 	if upgradeIdentifier == "SHOOTING_WEAPON":
 		$"..".nextWeapon()
 		if not "SHOOTING_POWER" in allUpgrades:

@@ -10,7 +10,7 @@ var xp: int = 0
 var xpForNextLevel: int = 5
 var level = 1
 var health: int = 100
-var autoHealPower: int = 1
+var autoHealPower: int = 2
 var weapon = 0
 var purchasedUpgrades = {}
 var seconds = 0
@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 			changeHealth(-1)
 	if weapon > 0 and Input.is_action_just_pressed("shoot") and $ShootingCooldown.is_stopped():
 		$ShootingCooldown.start()
+		$ShootingSFX.play()
 		var angles = [0]
 		if weapon == 2:
 			angles = [0, 0.3, -0.3]
@@ -44,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		$Range/Polygon2D.visible = true
 		$Range/Timer.start()
 		$MeleeCooldown.start()
+		$MeleeSFX.play()
 		for body in $Range.get_overlapping_bodies():
 			if body.has_method("getHit"):
 				increaseXp(body.getHit(meleePower))
@@ -61,7 +63,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func changeHealth(ammount):
-	health = health + ammount
+	if health + ammount > 100:
+		health = 100
+	else:
+		health = health + ammount
 	$Health.value = health
 	if health <= 0:
 		$"..".gameover()
@@ -86,20 +91,27 @@ func increaseXp(gainedXp: int):
 		xp = xp - xpForNextLevel
 		if level < 20:
 			xpForNextLevel = xpForNextLevel + 10
-		elif level < 35:
+		elif level < 40:
 			xpForNextLevel = xpForNextLevel + 15
-		elif level < 50:
+		elif level < 60:
 			xpForNextLevel = xpForNextLevel + 20
 		$Level.text = "LEVEL " + str(level)
 		$Experience.max_value = xpForNextLevel
-		$UpgradeManager.onLevelUp(level)
+		if len($UpgradeManager.allUpgrades.keys()) > 0:
+			$UpgradeManager.onLevelUp(level)
 	$Experience.value = xp
 
 func decreaseMeleeCooldown() -> void:
 	$MeleeCooldown.wait_time = $MeleeCooldown.wait_time - 0.1
 
+func increaseMeleePower() -> void:
+	meleePower = meleePower + 1
+
 func decreaseShootingCooldown() -> void:
 	$ShootingCooldown.wait_time = $ShootingCooldown.wait_time - 0.1
+
+func increaseSpeed() -> void:
+	speed = speed + 10
 
 func increaseShootingPower() -> void:
 	shootingPower = shootingPower + 1

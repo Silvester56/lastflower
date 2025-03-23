@@ -3,7 +3,7 @@ extends Area2D
 @export var Shroom: PackedScene
 
 var health: int = 100
-var autoHealPower: int = 1
+var autoHealPower: int = 2
 var thorns = false
 var shrooms = false
 var thornsChance = 5
@@ -16,7 +16,10 @@ func _physics_process(delta: float) -> void:
 			changeHealth(-1)
 
 func changeHealth(ammount):
-	health = health + ammount
+	if health + ammount > 100:
+		health = 100
+	else:
+		health = health + ammount
 	$Health.value = health
 	if health <= 0:
 		$"..".gameover()
@@ -29,6 +32,9 @@ func increaseThorns() -> void:
 func increaseShrooms() -> void:
 	$ShroomSpawn.start()
 	shroomDamage = shroomDamage + 1
+
+func decreaseShroomCooldown() -> void:
+	$ShroomSpawn.wait_time = $ShroomSpawn.wait_time - 0.8
 
 func _on_auto_heal_timeout() -> void:
 	changeHealth(autoHealPower)

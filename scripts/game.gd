@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var enemy = preload("res://scenes/enemy.tscn")
 var rng = RandomNumberGenerator.new()
-var globalAutoHealSpeed = 1
-var globalAutoHealPower = 1
 var percentageOfGame = 0
 
 func getUpgradeOffest(upgradeId: String) -> int:
@@ -44,20 +42,18 @@ func _on_spawn_timeout() -> void:
 	if len(throws) >= 2 and throws[1] == winner:
 		newEnemy.setProperties(64, 2, 60, 2)
 	if len(throws) >= 3 and throws[2] == winner:
-		newEnemy.setProperties(128, 5, 80, 4)
+		newEnemy.setProperties(128, 4, 80, 4)
 	if len(throws) >= 4 and throws[3] == winner:
-		newEnemy.setProperties(196, 10, 100, 8)
+		newEnemy.setProperties(196, 8, 100, 8)
 	add_child(newEnemy)
 
 func increaseAutoHealSpeed() -> void:
-	globalAutoHealSpeed = globalAutoHealSpeed - 0.1
-	$Player/AutoHeal.wait_time = globalAutoHealSpeed
-	$Flower/AutoHeal.wait_time = globalAutoHealSpeed
+	$Player/AutoHeal.wait_time = $Player/AutoHeal.wait_time - 0.1
+	$Flower/AutoHeal.wait_time = $Flower/AutoHeal.wait_time - 0.1
 
 func increaseAutoHealPower() -> void:
-	globalAutoHealPower = globalAutoHealPower + 1
-	$Player.autoHealPower = globalAutoHealPower
-	$Flower.autoHealPower = globalAutoHealPower
+	$Player.autoHealPower = $Player.autoHealPower + 1
+	$Flower.autoHealPower = $Flower.autoHealPower + 1
 
 func increaseDifficulty(seconds):
 	$Spawn.wait_time = 1 - float(seconds) / 2000
