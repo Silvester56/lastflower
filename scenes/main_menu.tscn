@@ -150,15 +150,10 @@ text = "PLAY"
 layout_mode = 2
 text = "HOW TO PLAY"
 
-[node name="Options" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "OPTIONS"
-
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
-[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

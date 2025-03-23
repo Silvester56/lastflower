@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 			changeHealth(-1)
 	if weapon > 0 and Input.is_action_just_pressed("shoot") and $ShootingCooldown.is_stopped():
 		$ShootingCooldown.start()
-		$ShootingSFX.play()
+		$ShootingSFX.play(0.3)
 		var angles = [0]
 		if weapon == 2:
 			angles = [0, 0.3, -0.3]

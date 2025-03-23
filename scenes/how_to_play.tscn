@@ -123,12 +123,18 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -400.0
-offset_right = 400.0
-offset_bottom = 300.0
+offset_left = -512.0
+offset_right = 512.0
+offset_bottom = 702.0
 grow_horizontal = 2
-text = "Defend the last flower on Earth from the assaults of industrial society. Use WASD to move, space for melee combat, and mouse to aim and shoot."
-horizontal_alignment = 1
+text = "As the spirit of the forest you must defend the last flower on Earth from the unholy forces of industrial capitalism.
+Use WASD to move, space for melee combat, and mouse to aim and shoot.
+Credits :
+- Music : \"Video Dungeon Boss\" by Kevin MacLeod
+- Melee SFX : \"hit by a wood\" by RibhavAgrawal
+- Slingshot SFX : \"086123_Slingshot\" by Freesound
+- Title font : \"Sun Flower\" by Display Studio
+- Text font : Morris Roman by Dieter Steffmann"
 autowrap_mode = 2
 
 [node name="Back" type="Button" parent="."]
