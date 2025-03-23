@@ -389,10 +389,11 @@ one_shot = true
 [node name="AutoHeal" type="Timer" parent="Player"]
 autostart = true
 
-[node name="UpgradeManager" type="VBoxContainer" parent="Player"]
+[node name="UpgradeManager" type="Control" parent="Player"]
 process_mode = 2
 visible = false
 z_index = 1
+layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -404,15 +405,37 @@ offset_right = 250.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 100
 script = ExtResource("5_hyn4y")
 Upgrade = ExtResource("6_5tl5l")
 
+[node name="ColorRect" type="ColorRect" parent="Player/UpgradeManager"]
+layout_mode = 2
+offset_right = 500.0
+offset_bottom = 600.0
+color = Color(0, 0, 0, 0.392157)
+
 [node name="Label" type="Label" parent="Player/UpgradeManager"]
 layout_mode = 2
+offset_top = 50.0
+offset_right = 500.0
+offset_bottom = 94.0
 theme = ExtResource("4_dwo01")
 text = "Level Up!"
 horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player/UpgradeManager"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -450.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 100
 
 [node name="UpgradeDisplay" type="Node2D" parent="Player"]
 position = Vector2(-505, -340)

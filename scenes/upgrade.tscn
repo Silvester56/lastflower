@@ -9,7 +9,7 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -624.0
+offset_right = -524.0
 offset_bottom = -688.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -18,7 +18,7 @@ script = ExtResource("2_ecwas")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
-offset_right = 400.0
+offset_right = 500.0
 offset_bottom = 80.0
 color = Color(0.423529, 0.227451, 1, 1)
 
@@ -36,8 +36,8 @@ text = "Name"
 
 [node name="Rank" type="Label" parent="."]
 layout_mode = 2
-offset_left = 330.0
-offset_right = 400.0
+offset_left = 430.0
+offset_right = 500.0
 offset_bottom = 18.0
 text = "Rank : 1"
 
@@ -45,15 +45,15 @@ text = "Rank : 1"
 layout_mode = 0
 offset_left = 40.0
 offset_top = 40.0
-offset_right = 400.0
+offset_right = 500.0
 offset_bottom = 79.0
 text = "Description of the upgrade, the upgrade does blablablaefefefe"
-autowrap_mode = 1
+autowrap_mode = 2
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
 layout_mode = 2
-offset_right = 400.0
+offset_right = 500.0
 offset_bottom = 80.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

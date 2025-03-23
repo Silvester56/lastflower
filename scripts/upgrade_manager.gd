@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 @export var Upgrade: PackedScene
 
@@ -68,11 +68,11 @@ func createUpgrade(upgradeId, rank):
 		elif rank == 5:
 			result.setProperties("Slingturret 2", "Fires in 16 directions", rank, upgradeId, 160)
 	result.connect("upgrade_purchased", _on_upgrade_purchased)
-	add_child(result)
+	$VBoxContainer.add_child(result)
 	
 func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	hide()
-	for c in get_children():
+	for c in $VBoxContainer.get_children():
 		if "upgradeIdentifier" in c:
 			c.queue_free()
 	get_tree().paused = false
