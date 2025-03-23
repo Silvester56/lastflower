@@ -64,9 +64,9 @@ func createUpgrade(upgradeId, rank):
 		elif rank == 3:
 			result.setProperties("Slingshotgun 2", "Fires 5 projectiles", rank, upgradeId, 160)
 		elif rank == 4:
-			result.setProperties("Turret", "Fires in 8 directions", rank, upgradeId, 160)
+			result.setProperties("Slingturret", "Fires in 8 directions", rank, upgradeId, 160)
 		elif rank == 5:
-			result.setProperties("Turret 2", "Fires in 16 directions", rank, upgradeId, 160)
+			result.setProperties("Slingturret 2", "Fires in 16 directions", rank, upgradeId, 160)
 	result.connect("upgrade_purchased", _on_upgrade_purchased)
 	add_child(result)
 	
@@ -89,11 +89,11 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	if upgradeIdentifier == "MELEE_POWER":
 		$"..".increaseMeleePower()
 	if upgradeIdentifier == "SHROOMS":
-		$"../../Flower".increaseShrooms()
+		$"../..".increaseShrooms()
 		if not "SHROOM_COOLDOWN" in allUpgrades:
 			allUpgrades["SHROOM_COOLDOWN"] = 1
 	if upgradeIdentifier == "SHROOM_COOLDOWN":
-		$"../../Flower".decreaseShroomCooldown()
+		$"../..".decreaseShroomCooldown()
 	if upgradeIdentifier == "THORNS":
 		$"../../Flower".increaseThorns()
 	if upgradeIdentifier == "SPEED":

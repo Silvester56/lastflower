@@ -1,8 +1,11 @@
 extends Node2D
 
-@onready var enemy = preload("res://scenes/enemy.tscn")
+@export var Enemy: PackedScene
+@export var Shroom: PackedScene
+
 var rng = RandomNumberGenerator.new()
 var percentageOfGame = 0
+var shroomDamage = 1
 
 func getUpgradeOffest(upgradeId: String) -> int:
 	if upgradeId == "AUTO_HEAL_SPEED":
@@ -33,7 +36,7 @@ func _on_spawn_timeout() -> void:
 	if percentageOfGame > 25:
 		throws.push_back(rng.randf_range(0, min(100, percentageOfGame)))
 	var winner = throws.max()
-	var newEnemy = enemy.instantiate()
+	var newEnemy = Enemy.instantiate()
 	var spawnAngle = rng.randf_range(0, 2 * PI)
 	var spawnRadius = rng.randf_range(600, 800)
 	newEnemy.position.x = spawnRadius * cos(spawnAngle)
@@ -65,6 +68,13 @@ func gameover():
 	$Player/GameOver.show()
 	get_tree().paused = true
 
+func increaseShrooms() -> void:
+	$ShroomSpawn.start()
+	shroomDamage = shroomDamage + 1
+
+func decreaseShroomCooldown() -> void:
+	$ShroomSpawn.wait_time = $ShroomSpawn.wait_time - 0.8
+
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
@@ -72,3 +82,12 @@ func _on_retry_pressed() -> void:
 func _on_back_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_shroom_spawn_timeout() -> void:
+	var shroom = Shroom.instantiate()
+	var spawnAngle = rng.randf_range(0, 2 * PI)
+	var spawnRadius = rng.randf_range(200, 400)
+	shroom.damage = shroomDamage
+	shroom.position.x = spawnRadius * cos(spawnAngle)
+	shroom.position.y = spawnRadius * sin(spawnAngle)
+	add_child(shroom)
