@@ -37,16 +37,16 @@ func createUpgrade(upgradeId, rank):
 	if upgradeId == "MELEE_COOLDOWN":
 		result.setProperties("Whip speed", "Decreases melee attack cooldown", rank, upgradeId, 32)
 	if upgradeId == "SPEED":
-		result.setProperties("Boost", "Increases player speed", rank, upgradeId)
+		result.setProperties("Boost", "Increases player speed", rank, upgradeId, 320)
 	if upgradeId == "MELEE_POWER":
-		result.setProperties("Whip strength", "Increases melee damage", rank, upgradeId)
+		result.setProperties("Whip strength", "Increases melee damage", rank, upgradeId, 352)
 	if upgradeId == "SHROOMS":
 		if rank == 1:
 			result.setProperties("Shrooms", "Mushrooms grow around the flower to protect it", rank, upgradeId, 96)
 		else:
 			result.setProperties("Shrooms", "Mushrooms deal more damage", rank, upgradeId, 96)
 	if upgradeId == "SHROOM_COOLDOWN":
-		result.setProperties("Shrooms", "Mushrooms appear faster", rank, upgradeId, 96)
+		result.setProperties("Shrooms", "Mushrooms appear faster", rank, upgradeId, 256)
 	if upgradeId == "SHOOTING_POWER":
 		result.setProperties("Spikes", "Each projectiles deal more damage", rank, upgradeId, 224)
 	if upgradeId == "SHOOTING_COOLDOWN":
@@ -56,6 +56,8 @@ func createUpgrade(upgradeId, rank):
 			result.setProperties("Thorns", "Enemies on the flower have a chance of getting hit", rank, upgradeId, 128)
 		else:
 			result.setProperties("Thorns", "Enemies on the flower have more chances of getting hit", rank, upgradeId, 128)
+	if upgradeId == "THORNS_POWER":
+		result.setProperties("Thorns size", "Thorns deal more damage", rank, upgradeId, 288)
 	if upgradeId == "SHOOTING_WEAPON":
 		if rank == 1:
 			result.setProperties("Slingshot", "Long distance weapon", rank, upgradeId, 160)
@@ -95,7 +97,11 @@ func _on_upgrade_purchased(upgradeIdentifier) -> void:
 	if upgradeIdentifier == "SHROOM_COOLDOWN":
 		$"../..".decreaseShroomCooldown()
 	if upgradeIdentifier == "THORNS":
+		if not "THORNS_POWER" in allUpgrades:
+			allUpgrades["THORNS_POWER"] = 1
 		$"../../Flower".increaseThorns()
+	if upgradeIdentifier == "THORNS_POWER":
+		$"../../Flower".increaseThornsPower()
 	if upgradeIdentifier == "SPEED":
 		$"..".increaseSpeed()
 	if upgradeIdentifier == "SHOOTING_WEAPON":
